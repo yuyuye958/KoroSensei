@@ -1,0 +1,10 @@
+.token.comment,
+.token.punctuation,
+.token.property,
+.token.selector {
+	color: black;
+}
+
+.emoji {
+    display: none
+}

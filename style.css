@@ -1,0 +1,229 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+#code{
+    height: 30%;
+    background: white;
+    min-width: 400px;
+    overflow: auto;
+    padding: 16px;
+}
+#koro {
+    height: 70%;
+    min-width: 400px;
+    overflow: auto;
+}
+
+/* 9种表情 */
+.normal,
+.normal.face:before {
+	background: #fff369;
+}
+
+.right,
+.right.face:before {
+	background: #ff9341;
+}
+.mistake,
+.mistake.face:before {
+	background: #755181;
+}
+
+.mistake.face:before {
+	background-image: linear-gradient(
+			45deg,
+			transparent,
+			transparent 139px,
+			#ee5d40 10px,
+			#ee5d40 192px,
+			transparent 25px
+		),
+		linear-gradient(-45deg, transparent, transparent 139px, #ee5d40 10px, #ee5d40 192px, transparent 25px);
+}
+.disdain,
+.disdain.face:before {
+	background-color: #fff369;
+	background-image: repeating-linear-gradient(0deg, transparent, transparent 35px, #76e396 35px, #76e396 70px);
+}
+.sad,
+.sad.face:before {
+	background: #badaff;
+}
+.blank,
+.blank.face:before {
+	background: #f2f2f2;
+}
+.blank.face {
+	border-radius: 0;
+	width: 54px;
+	background: linear-gradient(transparent 250px, #333 250px, #333 253px, transparent 253px);
+}
+.blush,
+.blush.face:before {
+	background: #fbbff8;
+}
+.furious,
+.furious.face:before {
+	background: #292929;
+}
+.furious.face:after {
+	content: '';
+	position: absolute;
+	width: 224px;
+	height: 30px;
+	/* border-radius: 100%; */
+	left: 0;
+	right: 0;
+	background-image: linear-gradient(36deg, transparent, transparent 174px, #000 10px, #000 205px, transparent 25px),
+		linear-gradient(-36deg, transparent, transparent 177px, #000 10px, #000 205px, transparent 25px);
+	margin: auto;
+	margin-top: 165px;
+}
+.shocked,
+.shocked.face:before {
+	background: #8fb8e6;
+}
+.shocked.face:after {
+	content: '';
+	position: absolute;
+	width: 224px;
+	height: 116px;
+	/* border-radius: 100%; */
+	left: 0;
+	right: 0;
+	background-image: radial-gradient(#fff, #fff 4px, #333 4px, #333 7px, transparent 7px),
+		radial-gradient(#fff, #fff 4px, #333 4px, #333 7px, transparent 7px);
+	background-size: 240px 240px, 240px 240px;
+	background-position: -93px -88px, 76px -86px;
+	margin: auto;
+	margin-top: 81px;
+}
+.mistake + .extra {
+	width: 250px;
+	height: 250px;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+	top: 144px;
+	transform: rotate(45deg);
+	background-image: linear-gradient(
+			0deg,
+			transparent,
+			transparent 117px,
+			#ee5d40 10px,
+			#ee5d40 171px,
+			transparent 25px
+		),
+		linear-gradient(90deg, transparent, transparent 75px, #ee5d40 10px, #ee5d40 129px, transparent 25px);
+	z-index: -1;
+}
+.right + .extra {
+	width: 320px;
+	height: 320px;
+	border: 15px solid #ee5d40;
+	border-radius: 100%;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+	top: 24px;
+}
+.blush + .extra {
+	content: '';
+	position: absolute;
+	width: 242px;
+	height: 153px;
+	/* border-radius: 100%; */
+	left: 0;
+	right: 0;
+	background-image: radial-gradient(#ff63d5, #ff63d5 15px, transparent 4px),
+		radial-gradient(#ff63d5, #ff63d5 15px, transparent 4px);
+	/* background-size: 240px 240px, 240px 240px; */
+	background-position: -105px -86px, 104px -86px;
+	margin: auto;
+	top: 61px;
+}
+.sad + .extra {
+	content: '';
+	position: absolute;
+	border-bottom: 118px solid #f2f2f2;
+	border-left: 20px solid transparent;
+	border-right: 31px solid transparent;
+	height: 0;
+	width: 8px;
+	top: 168px;
+	left: 91px;
+	transform: skewY(17deg);
+}
+.sad + .extra:before {
+	content: '';
+	position: absolute;
+	border-bottom: 112px solid #f2f2f2;
+	border-left: 20px solid transparent;
+	border-right: 31px solid transparent;
+	height: 0;
+	width: 8px;
+	top: -53px;
+	left: 149px;
+	transform: skewY(-40deg);
+}
+.furious + .extra {
+	content: '';
+	position: absolute;
+	height: 191px;
+	width: 285px;
+	border-radius: 100%;
+	border-bottom: 17px solid #000;
+	top: 126px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.shocked + .extra {
+	content: '';
+	position: absolute;
+	height: 36px;
+	width: 42px;
+	background: #f3f3f3;
+	top: 47px;
+	left: 148px;
+	right: 0;
+	margin: auto;
+	border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+	transform: rotateZ(-57deg) skewX(-17deg) skewY(9deg);
+}
+.shocked + .extra:before {
+	content: '';
+	position: absolute;
+	height: 20px;
+	width: 32px;
+	background: #f3f3f3;
+	top: 59px;
+	left: 22px;
+	right: 0;
+	margin: auto;
+	border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+	transform: rotateZ(-32deg) skewX(-30deg) skewY(24deg);
+}
+.shocked + .extra:after {
+	content: '';
+	position: absolute;
+	height: 20px;
+	width: 32px;
+	background: #f3f3f3;
+	top: -32px;
+	left: -60px;
+	right: 0;
+	margin: auto;
+	border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+	transform: rotateZ(-32deg) skewX(-35deg) skewY(22deg);
+}
