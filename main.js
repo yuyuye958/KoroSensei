@@ -1,4 +1,5 @@
-var css1 = `/*
+!function () {
+	var css1 = `/*
  * 你看过一部名为 暗杀教室 的日本动漫吗？
  * 没看过也没关系
  * 现在来认识一下剧中的Koro老师吧！            
@@ -15,7 +16,7 @@ body {
 .container {
 	width: 400px;
 	height: 400px;
-	margin: 50px auto;
+	margin: 10px auto;
 	text-align: center;
 	position: relative;
 }
@@ -43,13 +44,13 @@ body {
 
 /* 然后我们直接来画嘴巴 */
 .koroSensei .face {
+	background: linear-gradient(90deg, #fff 80%, #333 80%);
+	background-size: 20px;
 	width: 300px;
 	height: 300px;
 	border-radius: 100%;
 	margin: auto;
 	margin-top: 50px;
-	background: linear-gradient(90deg, #fff 80%, #333 80%);
-	background-size: 20px;
 }
 
 .koroSensei .face:before {
@@ -65,16 +66,16 @@ body {
 
 /* 我还需要一对眼睛 */
 .koroSensei .face:after {
+	background-image: radial-gradient(#0c0c0c, black 4px, transparent 4px),
+	radial-gradient(#0c0c0c, black 4px, transparent 4px);
+	background-size: 240px 240px, 240px 240px;
+	background-position: -93px -88px, 76px -86px;
 	content: '';
 	position: absolute;
 	width: 224px;
 	height: 116px;
 	left: 0;
 	right: 0;
-	background-image: radial-gradient(#0c0c0c, black 4px, transparent 4px),
-		radial-gradient(#0c0c0c, black 4px, transparent 4px);
-	background-size: 240px 240px, 240px 240px;
-	background-position: -93px -88px, 76px -86px;
 	margin: auto;
 	margin-top: 81px;
 }
@@ -86,7 +87,7 @@ body {
 
 `;
 
-var css2 = `/* 
+	var css2 = `/* 
  * 好像太单调了
  * 我们给老师再加8种表情
  * 因为这部分的CSS代码太多太耗时 想看的话可见我的源代码
@@ -95,7 +96,7 @@ var css2 = `/*
  */
 `;
 
-var js1 = `
+	var js1 = `
 function shadow(key) {
 	var str = '';
 	//rgb(227, 166, 20)rgb(234, 194, 48)
@@ -117,7 +118,7 @@ $('.emoji').find('li').click(function() {
 });
 `;
 
-var css3 = `/* 
+	var css3 = `/* 
 * 给你按钮自己切换表情吧！
 */
 
@@ -130,19 +131,18 @@ var css3 = `/*
 	padding: 0;
 	position: absolute;
 	margin: auto;
-	bottom: 40px;
-    
+	bottom: 3%;
 }
 .emoji li {
 	font-size: 10pt;
 	cursor: pointer;
 	display: inline-block;
 	text-align: center;
-	padding: 8px 10px;
+	padding: 3px 3px;
 	text-decoration: none;
 	box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.3);
 	border-radius: 4px;
-	margin: 0 10px;
+	margin: 0 1px;
 	color: #333;
 }
 
@@ -152,11 +152,12 @@ var css3 = `/*
 
 `;
 
-writeCSS('', css1, '').then(() => {
-	shadow('normal');
-	$('body').addClass('normal');
-	writeCSS(css1, css2, css1)
-		.then(() => {
+	// 调用
+	writeCSS('', css1, '').then(() => {
+		shadow('normal');
+		$('body').addClass('normal');
+	}).then(() => {
+		writeCSS(css1, css2, css1).then(() => {
 			let i = 1;
 			let IntervalID2 = setInterval(() => {
 				$('.emoji').children('li').get(i).click();
@@ -168,77 +169,100 @@ writeCSS('', css1, '').then(() => {
 					}, 2000);
 					window.clearInterval(IntervalID2);
 				}
-            }, 2000);
-            writeJS(css1+css2, js1)
-		}).then(() => {
-            setTimeout(()=>{
-                writeCSS(css1 + css2 + js1, css3, css1 + css2);
-            },20000)	
+			}, 2000);
+			writeJS(css1 + css2, js1).then(() => {
+				writeCSS(css1 + css2 + js1, css3, css1 + css2);
+			})
 		})
-})
+	})
 
-// 画图用到的JS
-var dict = {
-	normal: 'rgba(234, 194, 48',
-	right: 'rgba(234, 93, 28',
-	mistake: 'rgba(80, 45, 91',
-	disdain: 'rgba(234, 194, 48',
-	sad: 'rgba(163, 192, 224',
-	blank: 'rgba(224, 222, 222',
-	blush: 'rgba(237, 177, 234',
-	furious: 'rgba(0,0,0',
-	shocked: 'rgba(123, 164, 209'
-};
-
-function shadow(key) {
-	var str = '';
-	//rgb(227, 166, 20)rgb(234, 194, 48)
-	for (var i = 1; i < 100; i += 3) {
-		str = str + '' + i + 'px ' + i * 0.5 + 'px ' + dict[key] + ', ' + 5 / i + '),';
-	}
-	str = str + '' + i + 'px ' + i * 0.5 + 'px ' + dict[key] + ', ' + 5 / i + ')';
-	$('.koroSensei').css({ 'box-shadow': 'none' });
-	$('.koroSensei').css({ 'box-shadow': str });
-	console.log(str);
-}
-var theClass = 'normal';
-$('.emoji').find('li').click(function() {
-	$('.face').removeClass(theClass).addClass($(this).attr('class'));
-	$('body').removeClass(theClass).addClass($(this).attr('class'));
-	theClass = $(this).attr('class');
-	shadow(theClass);
-});
-
-// 把代码写到style和#code标签里
-function writeCSS(origin, addcode, styleCode) {
-	let n = 0;
-	let domcode = document.querySelector('#code');
-	return new Promise((resolve, reject) => {
-		let IntervalID = setInterval(() => {
-			domcode.innerHTML = Prism.highlight(origin + addcode.substr(0, n), Prism.languages.css, 'css');
-			codeStyle.innerHTML = styleCode + addcode.substr(0, n);
-			domcode.scrollTop = domcode.scrollHeight; // 让domcode自动滚动到底部
-			n++;
-			if (n === addcode.length) {
-				window.clearInterval(IntervalID);
-				resolve.call(undefined);
-			}
-		}, 20);
-	});
-}
-
-// 把JS代码写到code里
-function writeJS(origin, code) {
-	let n = 0;
-	let domcode = document.querySelector('#code');
-
-	let IntervalID = setInterval(() => {
-		domcode.innerHTML = Prism.highlight(origin + code.substr(0, n), Prism.languages.javascript, 'javascript');
-		domcode.scrollTop = domcode.scrollHeight; // 让paper自动滚动到底部
-		n++;
-		if (n === code.length) {
-			window.clearInterval(IntervalID);
-			resolve.call(undefined);
+	var duration = 50
+	// 变速
+	$('.changeSpeed').on('click', 'button', function (e) {
+		let $button = $(e.currentTarget)
+		let speed = $button.attr('data-speed')
+		$button.addClass('active').siblings('.active').removeClass('active')
+		switch (speed) {
+			case 'slow':
+				duration = 100
+				break
+			case 'normal':
+				duration = 50
+				break
+			case 'fast':
+				duration = 10
+				break
 		}
-	}, 30);
-}
+	})
+
+	// 把代码写到style和#code标签里
+	function writeCSS(origin, addcode, styleCode) {
+		let n = 0;
+		let domcode = document.querySelector('#code');
+		return new Promise((resolve, reject) => {
+			let IntervalID = setTimeout(function fn() {
+				domcode.innerHTML = Prism.highlight(origin + addcode.substr(0, n), Prism.languages.css, 'css');
+				codeStyle.innerHTML = styleCode + addcode.substr(0, n);
+				domcode.scrollTop = domcode.scrollHeight; // 让domcode自动滚动到底部
+				n++;
+				if (n < addcode.length) {
+					setTimeout(fn, duration)
+				} else {
+					resolve.call(undefined);
+				}
+			}, duration);
+		});
+	}
+
+	// 把JS代码写到code里
+	function writeJS(origin, code) {
+		let n = 0;
+		let domcode = document.querySelector('#code');
+		return new Promise((resolve, reject) => {
+			let IntervalID = setTimeout(function fn() {
+				domcode.innerHTML = Prism.highlight(origin + code.substr(0, n), Prism.languages.javascript, 'javascript');
+				domcode.scrollTop = domcode.scrollHeight; // 让paper自动滚动到底部
+				n++;
+				if (n < code.length) {
+					setTimeout(fn, duration)
+				} else {
+					resolve.call(undefined);
+				}
+			}, duration);
+		});
+	}
+
+	// 画图用到的JS
+	var dict = {
+		normal: 'rgba(234, 194, 48',
+		right: 'rgba(234, 93, 28',
+		mistake: 'rgba(80, 45, 91',
+		disdain: 'rgba(234, 194, 48',
+		sad: 'rgba(163, 192, 224',
+		blank: 'rgba(224, 222, 222',
+		blush: 'rgba(237, 177, 234',
+		furious: 'rgba(0,0,0',
+		shocked: 'rgba(123, 164, 209'
+	};
+
+	function shadow(key) {
+		var str = '';
+		//rgb(227, 166, 20)rgb(234, 194, 48)
+		for (var i = 1; i < 100; i += 3) {
+			str = str + '' + i + 'px ' + i * 0.5 + 'px ' + dict[key] + ', ' + 5 / i + '),';
+		}
+		str = str + '' + i + 'px ' + i * 0.5 + 'px ' + dict[key] + ', ' + 5 / i + ')';
+		$('.koroSensei').css({ 'box-shadow': 'none' });
+		$('.koroSensei').css({ 'box-shadow': str });
+		console.log(str);
+	}
+	var theClass = 'normal';
+	$('.emoji').find('li').click(function () {
+		$('.face').removeClass(theClass).addClass($(this).attr('class'));
+		$('body').removeClass(theClass).addClass($(this).attr('class'));
+		theClass = $(this).attr('class');
+		shadow(theClass);
+	});
+
+}.call()
+

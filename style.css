@@ -10,15 +10,35 @@ body {
 #code{
     height: 30%;
     background: white;
-    min-width: 400px;
     overflow: auto;
-    padding: 16px;
+    padding: 10px 20px;
 }
 #koro {
     height: 70%;
-    min-width: 400px;
     overflow: auto;
 }
+
+/* 调速按钮 */
+.changeSpeed{
+	position: absolute;
+	right: 1%;
+	top: 1%;
+	display: flex;
+	flex-direction: column;
+}
+.changeSpeed button{
+	margin: 10px;
+	cursor: pointer;
+	padding: 8px 12px;
+	background: #ddd;
+}
+.changeSpeed button.active{
+	box-shadow: 1px 1px 1px rgb(0, 0, 0, 0.8)
+}
+.changeSpeed button:focus{
+	outline: none;
+}
+
 
 /* 9种表情 */
 .normal,
