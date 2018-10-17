@@ -159,17 +159,19 @@ $('.emoji').find('li').click(function() {
 	}).then(() => {
 		writeCSS(css1, css2, css1).then(() => {
 			let i = 1;
-			let IntervalID2 = setInterval(() => {
+			let IntervalID2 = setTimeout(function fn() {
 				$('.emoji').children('li').get(i).click();
 				i++;
-				if (i === $('.emoji > li').length) {
+				if (i < $('.emoji > li').length) {
+					setTimeout(fn, duration*40)
+				}else if (i === $('.emoji > li').length) {
 					// 这里碰到了问题要记住  i=10的时候这个interval就报错了
 					setTimeout(() => {
 						$('.emoji').children('li').get(0).click();
-					}, 2000);
+					}, duration*40);
 					window.clearInterval(IntervalID2);
 				}
-			}, 2000);
+			}, duration*40);
 			writeJS(css1 + css2, js1).then(() => {
 				writeCSS(css1 + css2 + js1, css3, css1 + css2);
 			})
