@@ -163,22 +163,22 @@ $('.emoji').find('li').click(function() {
 				$('.emoji').children('li').get(i).click();
 				i++;
 				if (i < $('.emoji > li').length) {
-					setTimeout(fn, duration*40)
+					setTimeout(fn, duration*120)
 				}else if (i === $('.emoji > li').length) {
 					// 这里碰到了问题要记住  i=10的时候这个interval就报错了
 					setTimeout(() => {
 						$('.emoji').children('li').get(0).click();
-					}, duration*40);
+					}, duration*120);
 					window.clearInterval(IntervalID2);
 				}
-			}, duration*40);
+			}, duration*120);
 			writeJS(css1 + css2, js1).then(() => {
 				writeCSS(css1 + css2 + js1, css3, css1 + css2);
 			})
 		})
 	})
 
-	var duration = 50
+	var duration = 25
 	// 变速
 	$('.changeSpeed').on('click', 'button', function (e) {
 		let $button = $(e.currentTarget)
@@ -186,13 +186,13 @@ $('.emoji').find('li').click(function() {
 		$button.addClass('active').siblings('.active').removeClass('active')
 		switch (speed) {
 			case 'slow':
-				duration = 100
-				break
-			case 'normal':
 				duration = 50
 				break
+			case 'normal':
+				duration = 25
+				break
 			case 'fast':
-				duration = 10
+				duration = 6
 				break
 		}
 	})
